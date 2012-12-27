@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>Puzzle Mocha Runner</title>
+    <link href="../static/css/mocha.css" type="text/css" rel="stylesheet" charset="utf-8">
+    <script src="http://static.alipayobjects.com/seajs/1.2.1/sea.js"></script>
+    <script src="../static/js/arale-helper.js"></script>
+    <script src="../static/js/es5-safe.js"></script>
+    <script src="../static/js/test-suite.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+      (function() {
+        mocha.setup('bdd');
+        puerh.use('expect');
+        var data = {"name":"puzzle","version":"1.0.0","root":"arale","description":"a puzzle game","homepage":"","author":"","repository":{"type":"git","url":""},"bugs":{"url":""},"license":"MIT","dependencies":{"$":"$","popup":"arale/popup/0.9.9/popup"},"tests":["puzzle"],"output":{"puzzle.js":"."}}
+        data.dependencies && (delete data.dependencies['$'])
+        data.devDependencies && (delete data.devDependencies['$'])
+
+        seajs.config({ alias: data.dependencies })
+        seajs.config({ alias: data.devDependencies })
+
+        var tests = data['tests'] || []
+
+        if (tests.length === 0) {
+          tests.push(data.name)
+        }
+
+        var specs = []
+        for (var i = 0; i < tests.length; i++) {
+          specs[i] = './' + tests[i] + '-spec.js'
+        }
+
+        seajs.use(specs, function() {
+          if (window.mochaPhantomJS) {
+            mochaPhantomJS.run()
+          } else {
+            mocha.run()
+          }
+        })
+      })();
+    </script>
+  </body>
+</html>

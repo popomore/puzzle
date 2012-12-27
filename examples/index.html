@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8">
+    <title>Puzzle - 演示文档</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="nico 0.1.0" />
+    <link type="image/x-icon" href="../static/css/favicon.ico" rel="icon">
+    <link rel="stylesheet" href="../static/css/normalize.css" />
+    <link rel="stylesheet" href="../static/css/site.css" />
+    <link rel="stylesheet" href="../static/css/solarized.css" />
+    <script src="http://static.alipayobjects.com/seajs/1.2.1/sea.js"></script>
+    <script src="../static/js/arale-helper.js"></script>
+    <script src="../static/js/site.js"></script><script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36247332-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script>
+  (function() {
+    var data;
+    seajs._package = data = {"name":"puzzle","version":"1.0.0","root":"arale","description":"a puzzle game","homepage":"","author":"","repository":{"type":"git","url":""},"bugs":{"url":""},"license":"MIT","dependencies":{"$":"$","popup":"arale/popup/0.9.9/popup"},"tests":["puzzle"],"output":{"puzzle.js":"."}}
+    data.dependencies && (delete data.dependencies['$'])
+    data.devDependencies && (delete data.devDependencies['$'])
+
+    seajs.config({ alias: data.dependencies })
+    seajs.config({ alias: data.devDependencies })
+    seajs.config({ alias: {"puzzle":"../src/puzzle.js"} })
+  })();
+</script>
+    <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.js"></script>
+    <![endif]-->
+    
+  </head>
+  <body>
+    <div id="body-wrapper">
+      <aside id="sidebar-wrapper">
+        <h1><a href="../">Puzzle</a><sup class="package-root"><a href="/">arale</a></sup></h1>
+        <p class="version">当前版本：<a href="http://aralejs.org/docs/online-status.html#arale-puzzle" title="点击查看此组件发布情况">1.0.0</a></p>
+        <p class="description">a puzzle game</p>
+        <a class="source" href="" target="_blank">View the Project</a>
+        <ul id="navigation" role="navigation">
+          <li><a href="../">文档</a></li>
+          <li><a href="../examples/">演示</a></li>
+          <li><a class="test-link" href="../tests/runner.html" target="_blank">用例</a></li>
+          <li><a class="issue-link" href="" target="_blank">讨论</a></li>
+        </ul>
+        
+
+<ul id="module-output"> 
+</ul>
+<div id="output-card">
+    <h3>arale/puzzle/1.0.0/<a target="_blank" id="output-file"></a></h3>
+    <p>这是模块的输出文件，请 require 或 seajs.use 以上 ID 来使用本文件，具体 API 请阅读文档。</p>
+</div>
+
+      </aside>
+      <div id="content-wrapper">
+        <div id="content">
+<article class="hentry">
+  <h1 class="entry-title">演示文档</h1>
+  <div class="entry-content">
+    <div id="message" class="message">
+  输入通关密码
+</div>
+
+<div id="hint" class="hint">提示？</div>
+
+<ul id="container" class="container">
+  <li>A</li>
+  <li>R</li>
+  <li>A</li>
+  <li>L</li>
+  <li>E</li>
+</ul>
+
+<script>
+seajs.use(['$', 'popup', 'puzzle'], function($, Popup, puzzle) {
+  puzzle.init($('#container li'));
+
+  $(document).keyup(function(e) {
+    puzzle.push(e.which);
+  });
+
+  setTimeout(function() {
+    $('#hint').show();
+  },1000);
+
+  new Popup({
+    trigger: '#hint',
+    align: {
+      baseXY: ['100%', '50%'],
+      selfXY: [0, '50%']
+    },
+    template: '<div class="hint-popup">支付宝前端类库</div>'
+  }).render();
+});
+
+</script>
+<div class="highlight"><pre><code class="javascript">seajs.use([<span class="string">'$'</span>, <span class="string">'popup'</span>, <span class="string">'arale/puzzle/1.0.0/puzzle'</span>], <span class="keyword">function</span>($, Popup, puzzle) {
+  puzzle.init($(<span class="string">'#container li'</span>));
+
+  $(document).keyup(<span class="keyword">function</span>(e) {
+    puzzle.push(e.which);
+  });
+
+  setTimeout(<span class="keyword">function</span>() {
+    $(<span class="string">'#hint'</span>).show();
+  },<span class="number">1000</span>);
+
+  <span class="keyword">new</span> Popup({
+    trigger: <span class="string">'#hint'</span>,
+    align: {
+      baseXY: [<span class="string">'100%'</span>, <span class="string">'50%'</span>],
+      selfXY: [<span class="number">0</span>, <span class="string">'50%'</span>]
+    },
+    template: <span class="string">'&lt;div class="hint-popup"&gt;支付宝前端类库&lt;/div&gt;'</span>
+  }).render();
+});
+
+</code></pre></div>
+  </div>
+</article>
+</div>
+      </div>
+      
+    </div>
+    <div id="footer-wrapper">
+      <footer>
+        <p class="powered">
+        <a href="http://aralejs.org">Arale</a> •
+        <a href="http://seajs.org">SeaJS</a> •
+        <a href="https://github.com/spmjs/spm">spm</a> •
+        <a href="http://lab.lepture.com/nico/">nico</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
