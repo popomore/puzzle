@@ -15,7 +15,7 @@
     "license": "MIT",
     "dependencies": {
       "$": "$",
-      "popup": "arale/popup/0.9.9/popup"
+      "popup": "arale/popup/0.9.11/popup"
     },
     "tests": ["puzzle"],
     "output": {
