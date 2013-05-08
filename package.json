@@ -1,24 +1,23 @@
 {
     "name": "puzzle",
     "version": "1.0.0",
-    "root": "arale",
+    "family": "arale",
     "description": "a puzzle game",
-    "homepage": "",
+    "homepage": "https://github.com/popomore/puzzle",
     "author": "",
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/popomore/puzzle"
     },
     "bugs": {
-        "url": ""
+        "url": "https://github.com/popomore/puzzle/issues"
     },
     "license": "MIT",
-    "dependencies": {
-      "$": "$",
-      "popup": "arale/popup/0.9.11/popup"
-    },
-    "tests": ["puzzle"],
-    "output": {
-        "puzzle.js": "."
+    "spm": {
+        "alias": {
+          "$": "$",
+          "popup": "arale/popup/1.0.2/popup"
+        },
+        "output": ["puzzle.js"]
     }
 }
