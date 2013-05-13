@@ -2,38 +2,92 @@
 <html lang="zh">
   <head>
     <meta charset="UTF-8">
-    <title>Puzzle - puzzle</title>
+    <title>arale/puzzle - puzzle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="nico 0.1.5" />
+    <meta name="generator" content="nico 0.3.1" />
     <link type="image/x-icon" href="./static/css/favicon.ico" rel="icon">
     <link rel="stylesheet" href="./static/css/normalize.css" />
     <link rel="stylesheet" href="./static/css/site.css" />
     <link rel="stylesheet" href="./static/css/solarized.css" />
-    <script src="http://static.alipayobjects.com/seajs/1.2.1/sea.js"></script>
-    <script src="./static/js/arale-helper.js"></script>
-    <script src="./static/js/site.js"></script><script type="text/javascript">
+<script type="text/javascript">
+
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36247332-1']);
   _gaq.push(['_trackPageview']);
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    if (location.port) {
+       return;
+    }
+    ga.src = 'https://ssl.google-analytics.com/ga.js'; 
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
 </script>
+<script src="http://assets.spmjs.org/seajs/seajs/2.0.0/??sea-debug.js,plugin-combo.js,plugin-style.js"></script>
 <script>
   (function() {
-    var data;
-    seajs._package = data = {"name":"puzzle","version":"1.0.0","root":"arale","description":"a puzzle game","homepage":"","author":"","repository":{"type":"git","url":""},"bugs":{"url":""},"license":"MIT","dependencies":{"$":"$","popup":"arale/popup/0.9.11/popup"},"tests":["puzzle"],"output":{"puzzle.js":"."}}
-    data.dependencies && (delete data.dependencies['$'])
-    data.devDependencies && (delete data.devDependencies['$'])
 
-    seajs.config({ alias: data.dependencies })
-    seajs.config({ alias: data.devDependencies })
-    seajs.config({ alias: {"puzzle":"./src/puzzle.js"} })
+  var query = location.search.substring(1).split('&');
+  var srcdir = 'src';
+
+  if (contain(query, 'dist')) {
+    srcdir = 'dist';
+  } else if (contain(query, 'cov')) {
+    srcdir = 'src-cov';
+  }
+
+  seajs.config({
+    alias: {
+      "$": 'jquery/jquery/1.7.2/jquery',
+      jquery: 'jquery/jquery/1.7.2/jquery',
+      "jquery-debug": 'jquery/jquery/1.7.2/jquery-debug',
+      mocha: "gallery/mocha/1.9.0/mocha",
+      expect: "gallery/expect/0.2.0/expect",
+      puerh: "popomore/puerh/0.1.0/puerh",
+      sinon: "gallery/sinon/1.6.0/sinon"
+    },
+    map: [function(uri) {
+      // resolve id
+      var m = uri.match(/arale\/puzzle\/1.0.0\/(.*)/);
+      if (m) {
+        return resolve(m[1]);
+      }
+      return uri;
+    }],
+    comboExcludes: {test: function(uri) {
+      return uri.indexOf('http://assets.spmjs.org') === -1;
+    }}
+  });
+
+  function resolve(file) {
+    if (contain(query, 'debug')) {
+      if (file.indexOf('-debug') === -1) {
+        file = file.replace(/\.(\w+)$/, '-debug.$1');
+      }
+    }
+    return seajs.resolve(".//" + srcdir + "/" + file);
+  }
+
+  function contain(arr, value) {
+    for (var i in arr) {
+      if (arr[i] === value) {
+        return true;
+      }
+    }
+    return false;
+  }
+      seajs.config({ alias: {"popup":"arale/popup/1.0.2/popup"}});
+    seajs.use([]);
+
+    seajs.config({alias: {
+      "$-debug": 'jquery/jquery/1.7.2/jquery-debug'
+        ,"puzzle": resolve("puzzle.js")
+    }});
   })();
 </script>
+    <script src="./static/js/site.js"></script>
     <!--[if lt IE 9]>
     <script src="./static/js/html5shiv.js"></script>
     <![endif]-->
@@ -42,20 +96,19 @@
   <body>
     <div id="body-wrapper">
       <aside id="sidebar-wrapper">
-        <h1><a href="./">Puzzle</a><sup class="package-root"><a href="/">arale</a></sup></h1>
+      <h1>
+          <a href="./">Puzzle</a><sup class="package-root"><a href="/">arale</a></sup>
+      </h1>
         <p class="version">当前版本：<a href="http://aralejs.org/docs/online-status.html#arale-puzzle" title="点击查看此组件发布情况">1.0.0</a></p>
         <p class="description">a puzzle game</p>
-        <a class="source" href="" target="_blank">View the Project</a>
+        <a class="source" href="https://github.com/popomore/puzzle" target="_blank">View the Project</a>
         <ul id="navigation" role="navigation">
           <li><a href="./">文档</a></li>
-          <li><a href="./examples/">演示</a></li>
+          <li><a href="examples/">演示</a></li>
           <li><a class="test-link" href="tests/runner.html" target="_blank">用例</a></li>
-          <li><a class="issue-link" href="" target="_blank">讨论</a></li>
+          <li><a class="issue-link" href="https://github.com/popomore/puzzle/issues" target="_blank">讨论</a></li>
         </ul>
         
-
-<ul id="module-output"> 
-</ul>
 <div id="output-card">
     <h3>arale/puzzle/1.0.0/<a target="_blank" id="output-file"></a></h3>
     <p>这是模块的输出文件，请 require 或 seajs.use 以上 ID 来使用本文件，具体 API 请阅读文档。</p>
@@ -68,7 +121,6 @@
   <h1 class="entry-title">puzzle</h1>
   <div class="entry-content">
     <p>A puzzle game using aralejs </p>
-
 <p><a href="http://popomore.github.com/puzzle/examples/">http://popomore.github.com/puzzle/examples/</a> &lt;- demo</p>
 
   </div>
@@ -79,11 +131,11 @@
     </div>
     <div id="footer-wrapper">
       <footer>
-        <p class="powered">
-        <a href="http://aralejs.org">Arale</a> •
-        <a href="http://seajs.org">SeaJS</a> •
-        <a href="https://github.com/spmjs/spm">spm</a> •
-        <a href="http://lab.lepture.com/nico/">nico</a>
+        <p class="powered"><a href="http://aralejs.org">Arale</a> •
+<a href="http://aliceui.org">Alice</a> •
+<a href="http://seajs.org">SeaJS</a> •
+<a href="https://spmjs.org">spmjs.org</a> •
+<a href="http://lab.lepture.com/nico/">nico</a>
         </p>
       </footer>
     </div>

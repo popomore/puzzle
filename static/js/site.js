@@ -1,4 +1,5 @@
-seajs.use(['$', 'arale/popup/0.9.11/popup'], function($, Popup) {
+seajs.use(['jquery', 'arale/popup/1.0.1/popup'], function($, Popup) {
+
   $(function(){
     $('h4 em, h3 em, h3 code, h4 code').parent().addClass('doc-api')
     // 给 iframe 加链接
@@ -28,35 +29,35 @@ seajs.use(['$', 'arale/popup/0.9.11/popup'], function($, Popup) {
     return false
   });
 
-  // spm install message
-  var root = $('#sidebar-wrapper h1 sup a').html();
-  if (root && Popup) {
+  var family = $('#sidebar-wrapper h1 sup a').html();
+  if (family && Popup) {
     var name = $('#sidebar-wrapper h1 > a').html().toLowerCase();
     var version = $('#sidebar-wrapper .version a').html();
     new Popup({
       trigger: '#sidebar-wrapper h1 > a',
       template: '<div class="popup-install">spm install '
-          +root+'.'+name+'@'+version+'</div>',
+      +family+'/'+name+'@'+version+'</div>',
       align: {
-          baseXY: [0, '100%+5']
+        baseXY: [0, '100%+5']
       }
     });
   }
 
   // output card
   if ($('#module-output')[0] && Popup) {
-      new Popup({
-        trigger: '#module-output li a',
-        element: '#output-card',
-        effect: 'fade',
-        beforeShow: function() {
-            var file = this.activeTrigger.data('file');
-            file = file.replace('./', '').replace('.js', '');
-            this.element.find('#output-file').html(file)
-                                             .attr('href', this.activeTrigger.attr('href'));
-        }
-      });
+    new Popup({
+      trigger: '#module-output li a',
+      element: '#output-card',
+      effect: 'fade',
+      beforeShow: function() {
+        var file = this.activeTrigger.data('file');
+        file = file.replace('./', '').replace('.js', '');
+        this.element.find('#output-file').html(file)
+        .attr('href', this.activeTrigger.attr('href'));
+      }
+    });
   }
+
 
   // google analytics
   var project = $('#sidebar-wrapper h1 > a').text();
@@ -75,4 +76,4 @@ seajs.use(['$', 'arale/popup/0.9.11/popup'], function($, Popup) {
   $('.issue-link').click(function() {
     _gaq.push(['_trackEvent', 'Link', 'Issue', project]);
   });
-})
+});
