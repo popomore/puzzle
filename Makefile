@@ -18,6 +18,9 @@ publish-doc: clean build-doc
 clean:
 	@rm -fr _site
 
+publish: clean build-doc
+	@ghp-import _site
+	@git push origin gh-pages
 
 reporter = spec
 url = tests/runner.html
