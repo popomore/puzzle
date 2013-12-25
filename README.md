@@ -4,7 +4,7 @@
 
 A puzzle game based on aralejs.
 
-http://popomore.github.com/puzzle/examples/ <- demo
+http://popomore.spmjs.org/puzzle/ <- demo
 
 ---
 
