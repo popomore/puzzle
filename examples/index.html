@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>arale/puzzle - 演示文档</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="nico 0.3.1" />
+    <meta name="generator" content="nico 0.4.7" />
     <link type="image/x-icon" href="../static/css/favicon.ico" rel="icon">
     <link rel="stylesheet" href="../static/css/normalize.css" />
     <link rel="stylesheet" href="../static/css/site.css" />
@@ -20,12 +20,19 @@
     if (location.port) {
        return;
     }
-    ga.src = 'https://ssl.google-analytics.com/ga.js'; 
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
 </script>
-<script src="http://assets.spmjs.org/seajs/seajs/2.0.0/??sea-debug.js,plugin-combo.js,plugin-style.js"></script>
+
+<script src="http://assets.spmjs.org/??
+seajs/seajs/2.1.1/sea.js,
+seajs/seajs-combo/1.0.0/seajs-combo.js,
+seajs/seajs-debug/1.0.0/seajs-debug.js,
+seajs/seajs-style/1.0.0/seajs-style.js,
+seajs/seajs-health/0.1.0/seajs-health.js,
+jquery/jquery/1.7.2/jquery.js"></script>
 <script>
   (function() {
 
@@ -34,6 +41,8 @@
 
   if (contain(query, 'dist')) {
     srcdir = 'dist';
+    
+      seajs.use("../dist/puzzle.js");
   } else if (contain(query, 'cov')) {
     srcdir = 'src-cov';
   }
@@ -41,11 +50,11 @@
   seajs.config({
     alias: {
       "$": 'jquery/jquery/1.7.2/jquery',
-      jquery: 'jquery/jquery/1.7.2/jquery',
+      "jquery": 'jquery/jquery/1.7.2/jquery',
       "jquery-debug": 'jquery/jquery/1.7.2/jquery-debug',
-      mocha: "gallery/mocha/1.9.0/mocha",
       expect: "gallery/expect/0.2.0/expect",
       puerh: "popomore/puerh/0.1.0/puerh",
+      handlebars: "gallery/handlebars/1.0.2/handlebars",
       sinon: "gallery/sinon/1.6.0/sinon"
     },
     map: [function(uri) {
@@ -53,6 +62,12 @@
       var m = uri.match(/arale\/puzzle\/1.0.0\/(.*)/);
       if (m) {
         return resolve(m[1]);
+      }
+      return uri;
+    }, function(uri) {
+      var m = uri.match(/([A-Za-z\-]+)\/[A-Za-z\-]+\/[\.0-9]+\/.+/);
+      if (m && /^alipay$/.test(m[1])) {
+        return 'http://yuan.alipay.im/assets/' + m[0];
       }
       return uri;
     }],
@@ -67,7 +82,7 @@
         file = file.replace(/\.(\w+)$/, '-debug.$1');
       }
     }
-    return seajs.resolve("..//" + srcdir + "/" + file);
+    return seajs.resolve("../" + srcdir + "/" + file + '#');
   }
 
   function contain(arr, value) {
@@ -83,8 +98,19 @@
 
     seajs.config({alias: {
       "$-debug": 'jquery/jquery/1.7.2/jquery-debug'
+        ,"puzzle.css": resolve("puzzle.css")
         ,"puzzle": resolve("puzzle.js")
     }});
+
+    // 加载依赖的 css 文件
+    var cssArray = [];
+    cssArray.push('arale/popup/1.0.2/popup');
+    for (var i=0; i<cssArray.length; i++) {
+      if (cssArray[i].indexOf('.css') < 0) {
+        cssArray.splice(i, 1);
+      }
+    }
+    seajs.use(cssArray);
   })();
 </script>
     <script src="../static/js/site.js"></script>
@@ -93,7 +119,7 @@
     <![endif]-->
     
   </head>
-  <body>
+  <body class="">
     <div id="body-wrapper">
       <aside id="sidebar-wrapper">
       <h1>
@@ -109,9 +135,13 @@
           <li><a class="issue-link" href="https://github.com/popomore/puzzle/issues" target="_blank">讨论</a></li>
         </ul>
         
+<ul id="module-output">
+  <li class="module-multiable" title="本组件共有1个子模块">文件</li>
+    <li><a data-file="puzzle.js" target="_blank" href="http://assets.spmjs.org/arale/puzzle/1.0.0/puzzle.js">■</a></li>
+</ul>
 <div id="output-card">
     <h3>arale/puzzle/1.0.0/<a target="_blank" id="output-file"></a></h3>
-    <p>这是模块的输出文件，请 require 或 seajs.use 以上 ID 来使用本文件，具体 API 请阅读文档。</p>
+    <p>这是本模块的输出文件，请复制以上 ID 进行使用。</p>
 </div>
 
       </aside>
@@ -120,10 +150,12 @@
 <article class="hentry">
   <h1 class="entry-title">演示文档</h1>
   <div class="entry-content">
-    <p><div id="message" class="message">
+    <div id="message" class="message">
   输入通关密码
-</div></p>
-<p><div id="hint" class="hint">提示？</div></p>
+</div>
+
+<div id="hint" class="hint">提示？</div>
+
 <ul id="container" class="container">
   <li>A</li>
   <li>R</li>
@@ -131,8 +163,6 @@
   <li>L</li>
   <li>E</li>
 </ul>
-
-
 <script>seajs.use(['$', 'popup', 'puzzle'], function($, Popup, puzzle) {
   puzzle.init($('#container li'));
 
@@ -152,7 +182,9 @@
     },
     template: '<div class="hint-popup">支付宝前端类库</div>'
   }).render();
-});</script><div class="highlight"><pre><code class="javascript">seajs.use([<span class="string">'$'</span>, <span class="string">'popup'</span>, <span class="string">'arale/puzzle/1.0.0/puzzle'</span>], <span class="keyword">function</span>($, Popup, puzzle) {
+});
+
+</script><div class="highlight"><pre><code class="javascript">seajs.use([<span class="string">'$'</span>, <span class="string">'popup'</span>, <span class="string">'arale/puzzle/1.0.0/puzzle'</span>], <span class="keyword">function</span>($, Popup, puzzle) {
   puzzle.init($(<span class="string">'#container li'</span>));
 
   $(document).keyup(<span class="keyword">function</span>(e) {
@@ -171,7 +203,9 @@
     },
     template: <span class="string">'&lt;div class="hint-popup"&gt;支付宝前端类库&lt;/div&gt;'</span>
   }).render();
-});</code></pre></div>
+});
+
+</code></pre></div>
   </div>
 </article>
 </div>
@@ -180,10 +214,9 @@
     </div>
     <div id="footer-wrapper">
       <footer>
-        <p class="powered"><a href="http://aralejs.org">Arale</a> •
-<a href="http://aliceui.org">Alice</a> •
-<a href="http://seajs.org">SeaJS</a> •
-<a href="https://spmjs.org">spmjs.org</a> •
+        <p class="powered"><a href="https://spmjs.org">spmjs</a> •
+<a href="http://seajs.org">Sea.js</a> •
+<a href="https://github.com/spmjs/nico-cmd">nico-cmd</a> •
 <a href="http://lab.lepture.com/nico/">nico</a>
         </p>
       </footer>
