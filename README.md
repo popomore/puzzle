@@ -1,8 +1,8 @@
-# puzzle
+# Puzzle
 
 ---
 
-A puzzle game based on aralejs.
+A puzzle game based on AERALAJS.
 
 http://popomore.spmjs.org/puzzle/ <- demo
 
